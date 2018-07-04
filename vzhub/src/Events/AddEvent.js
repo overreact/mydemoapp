@@ -16,7 +16,6 @@ class AddEvent extends Component {
       eventPrize: ''}
 
       this.addEventsService = new EventsService();
-
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -28,10 +27,13 @@ class AddEvent extends Component {
 
     handleSubmit(event) {
       event.preventDefault();
-      this.addEventsService.sendData(this.state);
-      //this.props.history.push('/');
-      console.log("itemaddedsuccesfully");
-     
+      this.addEventsService.sendData(this.state).then(response=> {
+        this.props.history.push('/list-event');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+      
     }
 
     render() {

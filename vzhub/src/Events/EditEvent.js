@@ -33,15 +33,21 @@ class EditItem extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.eventsService.updateData(this.state,this.props.match.params.id);
-    this.props.history.push('/list-event');
+    this.eventsService.updateData(this.state,this.props.match.params.id).then(res => {
+      this.setState({ items: res.data });
+      this.props.history.push('/list-event');
+    })
+    .catch(err => console.log(err));;    
   }
   handleCancelled(event){
-    event.preventDefault();
-    //this.setState({value: });
+    event.preventDefault();    
     this.state.value.cancelled=true;
-    this.eventsService.updateData(this.state.value,this.props.match.params.id);
-    this.props.history.push('/list-event');
+    this.eventsService.updateData(this.state.value,this.props.match.params.id).then(res => {
+      this.setState({ items: res.data });
+      this.props.history.push('/list-event');
+    })
+    .catch(err => console.log(err));
+   
   }
   render() {
     return (
@@ -69,8 +75,9 @@ class EditItem extends Component {
             <input type="text" name="eventPrize" value={this.state.value.eventPrize}  onChange={this.handleChange} />
             <br/>           
               </label><br/>
+              <input type="button" value="Mark As Complete" onClick={this.handleCancelled} className="btn btn-default"/>
               <input type="submit" value="Update" className="btn btn-primary"/>
-              <input type="button" value="Mark As Complete" onChange={this.handleCancelled} className="btn btn-default"/>
+              
             </form>
         </div>
     );

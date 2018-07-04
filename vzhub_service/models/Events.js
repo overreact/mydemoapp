@@ -1,6 +1,7 @@
 // Item.js
 
 var mongoose = require('mongoose');
+var Team = require('./Teams');
 var Schema = mongoose.Schema;
 
 // Define collection and schema for Event
@@ -29,6 +30,7 @@ var Event = new Schema({
   eventPrize:{
     type: String
   },
+  teams:[Team],
   cancelled: {type: Boolean, default: false}
 
 },{

@@ -6,14 +6,9 @@ class TableRow extends Component {
 
   constructor(props) {
       super(props);
-      this.eventsService = new EventsService();
-      this.handleSubmit = this.handleSubmit.bind(this);
+      
   }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.eventsService.deleteData(this.props.obj._id);
-  }
+  
 
   render() {
     return (
@@ -45,10 +40,8 @@ class TableRow extends Component {
           <td>
           <Link to={"/edit-event/"+this.props.obj._id} className="btn btn-primary">Edit</Link>
         </td>
-          <td>
-            <form onSubmit={this.handleSubmit}>
-              <input type="submit" value="Delete" className="btn btn-danger"/>
-            </form>
+          <td>            
+              <input type="submit" value="Delete" className="btn btn-danger" onClick={() =>this.props.callDelete(this.props.obj._id)}/>            
           </td>
         </tr>
     );
